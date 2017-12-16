@@ -1,0 +1,130 @@
+
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Bilbao
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+memory-size iomem 5
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+!
+!
+no ip domain lookup
+ipv6 unicast-routing
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+archive
+ log config
+  hidekeys
+! 
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 210.34.2.1 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+ ipv6 address 2002:CAFE:FE0:2::1/64
+ ipv6 enable
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet0/1
+ ip address 210.34.4.2 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address 2002:CAFE:FE0:4::1/64
+ ipv6 enable
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet1/0
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+router ospf 1
+ log-adjacency-changes
+ network 210.34.2.0 0.0.0.255 area 0
+ network 210.34.4.0 0.0.0.3 area 0
+ default-information originate
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip nat inside source static 210.34.2.3 192.168.122.161
+!
+no cdp log mismatch duplex
+ipv6 router ospf 1
+ log-adjacency-changes
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login
+!
+!
+end
