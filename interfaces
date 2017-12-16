@@ -7,7 +7,6 @@ source /etc/network/interfaces.d/*
 auto lo
 iface lo inet loopback
 auto ens33
-#iface ens33 inet dhcp
 iface ens33 inet static
 	address 210.34.2.3
 	netmask 255.255.255.0
