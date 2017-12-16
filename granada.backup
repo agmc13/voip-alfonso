@@ -1,0 +1,23 @@
+# dec/16/2017 12:39:41 by RouterOS 6.40.3
+# software id = 
+#
+#
+#
+/ip address
+add address=210.34.4.1/30 interface=ether1 network=210.34.4.0
+add address=210.34.4.5/30 interface=ether2 network=210.34.4.4
+add address=210.34.3.1/24 interface=ether3 network=210.34.3.0
+/ip dhcp-client
+add disabled=no interface=ether1
+/ipv6 address
+add address=2002:cafe:fe0:4::2 interface=ether1
+add address=2002:cafe:fe0:5::1 interface=ether2
+add address=2002:cafe:fe0:3::1 interface=ether3
+/routing ospf network
+add area=backbone network=210.34.4.0/30
+add area=backbone network=210.34.4.4/30
+add area=backbone network=210.34.3.0/24
+/routing ospf-v3 interface
+add area=backbone interface=ether1
+add area=backbone interface=ether2
+add area=backbone interface=ether3
